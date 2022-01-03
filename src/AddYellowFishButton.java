@@ -38,7 +38,7 @@ public class AddYellowFishButton extends Button {
   @Override
   public void mousePressed() {
     super.mousePressed();
-    tank.objects.add(new Fish(2, "images" + File.separator + "yellow.png"));
+    tank.objects.add(new Fish(2, "images" + File.separator + "yellow.png" ,10));
   }
 
 }

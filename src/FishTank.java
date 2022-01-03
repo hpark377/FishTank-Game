@@ -68,6 +68,7 @@ public class FishTank extends PApplet {
     // TODO load the background image and store the loaded image to backgroundImage
     // Note that you can call the loadImage() method directly (this.loadImage())
     this.backgroundImage = this.loadImage("images" + File.separator + "background.png");
+    
 
 
     // TODO create an empty array list of objects
@@ -98,7 +99,7 @@ public class FishTank extends PApplet {
     this.objects.add(new AddOrangeFishButton(129, 16));
     this.objects.add(new AddYellowFishButton(215, 16));
     this.objects.add(new ClearTankButton(301, 16));
-    
+    this.objects.add(new Gold(100,100));    
   }
   
   /**
@@ -107,11 +108,14 @@ public class FishTank extends PApplet {
   @Override
   public void draw() {
     // TODO clear the display window by drawing the background image
-     this.image(backgroundImage, this.width / 2, this.height / 2);
+     this.image(backgroundImage, this.width/2 , this.height/2 );
 
     // TODO traverse the objects list and draw each of the objects to this display window
     for (int i = 0; i < objects.size(); i++) {
       objects.get(i).draw();  
+      if(objects.get(i) instanceof Fish) {
+        if(((Fish)objects.get(i)).isDead()) objects.remove(i);
+        }  
     }
   }
   
@@ -147,6 +151,7 @@ public class FishTank extends PApplet {
    */
   public void addObject(TankListener object) {
     this.objects.add(object);
+    
 
 
   }
@@ -163,7 +168,7 @@ public class FishTank extends PApplet {
         break;
         
       case 'Y': //add yellow fish
-        this.addObject(new Fish(2, "images" + File.separator + "yellow.png"));
+        this.addObject(new Fish(2, "images" + File.separator + "yellow.png" ,10));
         break;
         
       case 'B': //add blue fish
@@ -204,7 +209,14 @@ public class FishTank extends PApplet {
     }
 
   }
-  
+  public void dead() {
+    for (int i = 0; i < objects.size(); i++) {
+      if(objects.get(i) instanceof Fish) {
+        if(((Fish)objects.get(i)).isDead()) objects.remove(i);
+        i--;
+      } 
+    }
+  }
   /**
    * removes all the instance of the class Fish from the tank
    */

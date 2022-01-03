@@ -38,6 +38,7 @@ public class TankObject implements TankListener {
    */
   public TankObject(float x, float y, String imageFileName) {
     this.image = tank.loadImage(imageFileName);
+    
     this.x = x;
     this.y = y;
     isDragging = false;

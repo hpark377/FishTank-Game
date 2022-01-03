@@ -14,12 +14,16 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 import java.io.File;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * This class makes fish that goes inside the fish tank extends superclass TankObject
  */
 public class Fish extends TankObject{
   private int speed;
+  private int health;
   private boolean isSwimming;
   
   /**
@@ -28,20 +32,27 @@ public class Fish extends TankObject{
    * @param speed: the swimming speed of this fish
    * @param fishImageFileName: file name of the image of the fish to be create
    */
-  public Fish(int speed, String fishImageFileName){
+  public Fish(int speed, String fishImageFileName, int health){
     
     super(tank.randGen.nextInt(tank.width), tank.randGen.nextInt(tank.height), fishImageFileName);
     if(speed <= 0) {
       throw new IllegalArgumentException("Warning: speed cannot be negative");
     }
     else this.speed = speed;
-   
+    this.health = health;
+     
+    ScheduledExecutorService execService = Executors.newScheduledThreadPool(1);
+    execService.scheduleAtFixedRate(() -> {
+        System.out.println(this.health);
+        this.health--;
+        if(this.health == 0) execService.shutdownNow();
+    }, 1L, 1L, TimeUnit.SECONDS);
   }
   /**
    * constructs default fish
    */
   public Fish(){
-    this(5,"images" + File.separator + "orange.png");
+    this(5,"images" + File.separator + "orange.png",10);
   }
   
   /**
@@ -97,6 +108,9 @@ public class Fish extends TankObject{
   public void swim() {
     this.setX((this.getX() + speed) % tank.width);
   }
-
+  
+  public boolean isDead() {
+    return health == 1;
+  }
 
 }
