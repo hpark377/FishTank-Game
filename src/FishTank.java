@@ -80,6 +80,7 @@ public class FishTank extends PApplet {
     //sets the static field tank  
     TankObject.setProcessing(this);
     Button.setProcessing(this);
+    GoldCounter.setProcessing(this);
     
     this.flower = new TankObject(430, 60, "images" + File.separator + "flower.png");
     this.log = new TankObject(580, 470, "images" + File.separator + "log.png");
@@ -99,7 +100,8 @@ public class FishTank extends PApplet {
     this.objects.add(new AddOrangeFishButton(129, 16));
     this.objects.add(new AddYellowFishButton(215, 16));
     this.objects.add(new ClearTankButton(301, 16));
-    this.objects.add(new Gold(100,100));    
+    this.objects.add(new GoldCounter(714, 16));   
+    this.objects.add(new Gold(100, 100, "images" + File.separator + "gold.png" , 100));   
   }
   
   /**
@@ -115,7 +117,11 @@ public class FishTank extends PApplet {
       objects.get(i).draw();  
       if(objects.get(i) instanceof Fish) {
         if(((Fish)objects.get(i)).isDead()) objects.remove(i);
-        }  
+        }
+      if(objects.get(i) instanceof Gold) {
+        if(((Gold)objects.get(i)).isDead()) objects.remove(i);
+        } 
+      
     }
   }
   
