@@ -1,13 +1,13 @@
-import java.io.File;
+
 
 
 public class Gold extends TankObject {
   // value of the coin
-  private int goldPoint = 100;
-  private int total = 0;
+  private int goldPoint;
   
-  public Gold(float x, float y) {
-    super(x, y, "images" + File.separator + "gold.png");  
+  public Gold(float x, float y, String filename, int goldPoint) {
+    super(x, y, filename, 10);  
+    this.goldPoint = goldPoint;
   }
   
   @Override
@@ -29,6 +29,7 @@ public class Gold extends TankObject {
     for (int i = 0; i < tank.objects.size() ; i++) {
       if (tank.objects.get(i).isMouseOver()) {
         tank.objects.remove(i);
+        GoldCounter.total = GoldCounter.total + goldPoint;
         return;
       }
     } 
@@ -40,10 +41,6 @@ public class Gold extends TankObject {
   
   public boolean isFalling() {
     return this.getY() <= 550;
-  }
-  
-  public int getTotal() {
-    return total;
   }
   
 }

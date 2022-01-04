@@ -37,6 +37,7 @@ public class AddBlueFishButton extends Button{
   @Override
   public void mousePressed() {
     super.mousePressed();
+    
     tank.addObject(new BlueFish()); 
   }
   
