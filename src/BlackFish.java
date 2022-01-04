@@ -68,6 +68,7 @@ public class BlackFish extends Fish {
     // condition of overlaps
     return (x1 < x4) && (x3 < x2) && (y1 < y4) && (y3 < y2);
   }
+
   
   /**
    * move the fish towards its destination
