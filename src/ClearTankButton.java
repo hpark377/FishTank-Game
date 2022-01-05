@@ -39,6 +39,7 @@ public class ClearTankButton extends Button{
     super.mousePressed();
     for (int i = 0; i < tank.objects.size(); i++) {
       if(tank.objects.get(i) instanceof Fish) {
+        ((Fish)tank.objects.get(i)).disappear();
         tank.objects.remove(i);
         i--;
       } 

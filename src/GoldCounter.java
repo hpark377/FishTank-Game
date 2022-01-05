@@ -8,7 +8,7 @@ public class GoldCounter implements TankListener {
   private float x; // x-position of this button in the display window
   private float y; // y-position of this button in the display window
   protected String label; // text/label which represents this button
-  protected static int total;
+  protected static int total = 300;
 
   public GoldCounter(float x, float y) {
     this.x = x;
@@ -32,6 +32,20 @@ public class GoldCounter implements TankListener {
     
   }
 
+  public static int getTotal() {
+    return total;
+  }
+  
+  public static void add(int add) {
+    total = total + add;
+  }
+  public static void subtract(int add) {
+    if(total >= add) {
+      total = total - add;
+    }
+    else throw new ArithmeticException();
+  }
+  
   @Override
   public void mousePressed() {
     // TODO Auto-generated method stub

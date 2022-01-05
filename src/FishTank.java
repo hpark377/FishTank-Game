@@ -41,9 +41,8 @@ public class FishTank extends PApplet {
   }
 
   /**
-   * Defines initial environment properties such as screen size and
-   * loads the background image and fonts as the program starts.
-   * It also initializes all data fields.
+   * Defines initial environment properties such as screen size and loads the background image and
+   * fonts as the program starts. It also initializes all data fields.
    * 
    */
   @Override
@@ -68,7 +67,7 @@ public class FishTank extends PApplet {
     // TODO load the background image and store the loaded image to backgroundImage
     // Note that you can call the loadImage() method directly (this.loadImage())
     this.backgroundImage = this.loadImage("images" + File.separator + "background.png");
-    
+
 
 
     // TODO create an empty array list of objects
@@ -76,68 +75,72 @@ public class FishTank extends PApplet {
 
     // TODO set randGen to the reference of a new Random objects
     this.randGen = new Random();
-    
-    //sets the static field tank  
+
+    // sets the static field tank
     TankObject.setProcessing(this);
     Button.setProcessing(this);
     GoldCounter.setProcessing(this);
-    
+
     this.flower = new TankObject(430, 60, "images" + File.separator + "flower.png");
     this.log = new TankObject(580, 470, "images" + File.separator + "log.png");
     this.shell = new TankObject(65, 520, "images" + File.separator + "shell.png");
     this.ship = new TankObject(280, 535, "images" + File.separator + "ship.png");
-    
-    //add decorations inside array list
+
+    // add decorations inside array list
     this.objects.add(flower);
     this.objects.add(log);
     this.objects.add(shell);
     this.objects.add(ship);
-    // add 2 black fish 
+    // add 2 black fish
     this.objects.add(new BlackFish(log, flower));
     this.objects.add(new BlackFish(shell, flower));
-    // add buttons 
+    // add buttons
     this.objects.add(new AddBlueFishButton(43, 16));
     this.objects.add(new AddOrangeFishButton(129, 16));
     this.objects.add(new AddYellowFishButton(215, 16));
     this.objects.add(new ClearTankButton(301, 16));
-    this.objects.add(new GoldCounter(714, 16));   
-    this.objects.add(new Gold(100, 100, "images" + File.separator + "gold.png" , 100));   
+    this.objects.add(new GoldCounter(714, 16));
   }
-  
+
   /**
    * Continuously draws and updates the application display window
    */
   @Override
   public void draw() {
     // TODO clear the display window by drawing the background image
-     this.image(backgroundImage, this.width/2 , this.height/2 );
+    this.image(backgroundImage, this.width / 2, this.height / 2);
 
     // TODO traverse the objects list and draw each of the objects to this display window
     for (int i = 0; i < objects.size(); i++) {
-      objects.get(i).draw();  
-      if(objects.get(i) instanceof Fish) {
-        if(((Fish)objects.get(i)).isDead()) objects.remove(i);
+      objects.get(i).draw();
+      if (objects.get(i) instanceof Fish) {
+        if (((Fish) objects.get(i)).isDead()) {
+          ((Fish) objects.get(i)).disappear();
+          objects.remove(i); 
         }
-      if(objects.get(i) instanceof Gold) {
-        if(((Gold)objects.get(i)).isDead()) objects.remove(i);
-        } 
-      
+      }
+    }
+    for (int i = 0; i < objects.size(); i++) {
+      if (objects.get(i) instanceof Gold) {
+        if (((Gold) objects.get(i)).isDead())
+          objects.remove(i);      
+      }  
     }
   }
-  
+
   /**
    * Callback method called each time the user presses the mouse
-   */ 
+   */
   @Override
   public void mousePressed() {
     // TODO traverse the objects list and call mousePressed method
     // of the first object being clicked in the list
-    for(int i = 0; i < objects.size(); i++) {
-      if(objects.get(i).isMouseOver()) {
+    for (int i = 0; i < objects.size(); i++) {
+      if (objects.get(i).isMouseOver()) {
         objects.get(i).mousePressed();
         return;
       }
-    }  
+    }
   }
 
   /**
@@ -146,18 +149,19 @@ public class FishTank extends PApplet {
   @Override
   public void mouseReleased() {
     // TODO traverse the objects list and call each object's mouseReleased() method
-    for(int i = 0; i < objects.size(); i++) {
+    for (int i = 0; i < objects.size(); i++) {
       objects.get(i).mouseReleased();
-    }  
+    }
   }
 
   /**
    * adds an instance of TankListener passed as input to the objects array list
+   * 
    * @param object : the tankObject that will be added in array list
    */
   public void addObject(TankListener object) {
     this.objects.add(object);
-    
+
 
 
   }
@@ -169,74 +173,80 @@ public class FishTank extends PApplet {
   public void keyPressed() {
 
     switch (Character.toUpperCase(this.key)) {
-      case 'O': //add orange fish
+      /*case 'O': // add orange fish
         this.addObject(new Fish());
+
         break;
-        
-      case 'Y': //add yellow fish
-        this.addObject(new Fish(2, "images" + File.separator + "yellow.png" ,10));
+
+      case 'Y': // add yellow fish
+        this.addObject(new Fish(2, "images" + File.separator + "yellow.png", 10));
         break;
-        
-      case 'B': //add blue fish
+
+      case 'B': // add blue fish
         this.addObject(new BlueFish());
-        break;
-        
-      
+        break;*/
+
+
       case 'R': // delete the fish that the mouse is over
         for (int i = 4; i < objects.size(); i++) {
-          if (objects.get(i).isMouseOver()){
+          if (objects.get(i).isMouseOver()) {
+            ((Fish) objects.get(i)).disappear();
             objects.remove(i);
             i--;
             break;
           }
         }
         break;
-          
-      
+
+
       case 'S': // start swimming
         for (int i = 0; i < objects.size(); i++) {
-          if(objects.get(i) instanceof Fish) {
+          if (objects.get(i) instanceof Fish) {
             ((Fish) objects.get(i)).startSwimming();
-          } 
+          }
         }
         break;
 
       case 'X': // freeze (stop swimming)
         for (int i = 0; i < objects.size(); i++) {
-          if(objects.get(i) instanceof Fish) {
+          if (objects.get(i) instanceof Fish) {
             ((Fish) objects.get(i)).stopSwimming();
-          } 
+          }
         }
         break;
-        
+
       case 'C': // Removes instances of the class Fish from this tank
         this.clear();
         break;
     }
 
   }
+
   public void dead() {
     for (int i = 0; i < objects.size(); i++) {
-      if(objects.get(i) instanceof Fish) {
-        if(((Fish)objects.get(i)).isDead()) objects.remove(i);
+      if (objects.get(i) instanceof Fish) {
+        if (((Fish) objects.get(i)).isDead())
+          objects.remove(i);
         i--;
-      } 
+      }
     }
   }
+
   /**
    * removes all the instance of the class Fish from the tank
    */
   public void clear() {
     for (int i = 0; i < objects.size(); i++) {
-      if(objects.get(i) instanceof Fish) {
+      if (objects.get(i) instanceof Fish) {
         objects.remove(i);
         i--;
-      } 
+      }
     }
   }
 
   /**
    * This main method starts the application
+   * 
    * @param args
    */
   public static void main(String[] args) {

@@ -29,7 +29,7 @@ public class BlackFish extends Fish {
    * @param destination
    */
   public BlackFish(TankObject source, TankObject destination) {
-    super(2, "images" + File.separator + "black.png",10);
+    super(2, "images" + File.separator + "black.png",10, 100);
     this.source = source;
     this.destination = destination;
   }

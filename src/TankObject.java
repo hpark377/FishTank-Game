@@ -13,8 +13,7 @@
 // Online Sources: NONE
 //
 ////////////////////////////////////////////////////////////////////////////////
-import java.util.Timer;
-import java.util.TimerTask;
+
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -34,7 +33,7 @@ public class TankObject implements TankListener {
   // is being dragged or not
   private static int oldMouseX; // old x-position of the mouse
   private static int oldMouseY; // old y-position of the mouse
-  private int timer;
+ 
 
   /**
    * construct TankObject
@@ -56,19 +55,19 @@ public class TankObject implements TankListener {
     this.x = x;
     this.y = y;
     isDragging = false;
-    healthReduction();
-  }
-
-  public void healthReduction() {
-    
-     ScheduledExecutorService execService = Executors.newScheduledThreadPool(1);
-     execService.scheduleAtFixedRate(() -> { 
-       System.out.println(health); 
-       health--;
-       if(health == 0)execService.shutdownNow(); }, 1L, 1L, TimeUnit.SECONDS);
-     
-  }
+    ScheduledExecutorService execService = Executors.newScheduledThreadPool(1);
+    execService.scheduleAtFixedRate(() -> {
+        this.health--;
+        if (this.health == 0) {
+          System.out.println("shutdown");
+          execService.shutdownNow();
+        }
+            
+    }, 1L, 1L, TimeUnit.SECONDS); //initial delay, period, time unit
+}
   
+
+ 
 
   /**
    * Sets the PApplet graphic display window for all TankObjects

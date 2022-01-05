@@ -29,7 +29,7 @@ public class Gold extends TankObject {
     for (int i = 0; i < tank.objects.size() ; i++) {
       if (tank.objects.get(i).isMouseOver()) {
         tank.objects.remove(i);
-        GoldCounter.total = GoldCounter.total + goldPoint;
+        GoldCounter.add(goldPoint);
         return;
       }
     } 

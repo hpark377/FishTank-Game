@@ -22,7 +22,9 @@ import java.util.TimerTask;
  */
 public class Fish extends TankObject {
   private int speed;
+  private int cost;
   private boolean isSwimming;
+  private boolean exist = true;
 
   /**
    * construct object Fish calls the super() constructor from TankObject
@@ -30,22 +32,18 @@ public class Fish extends TankObject {
    * @param speed:             the swimming speed of this fish
    * @param fishImageFileName: file name of the image of the fish to be create
    */
-  public Fish(int speed, String fishImageFileName, int health) {
+  public Fish(int speed, String fishImageFileName, int health, int cost) {
 
-    super(tank.randGen.nextInt(tank.width), tank.randGen.nextInt(tank.height), fishImageFileName);
+    super(tank.randGen.nextInt(tank.width), tank.randGen.nextInt(tank.height), fishImageFileName, 10);
     if (speed <= 0) {
       throw new IllegalArgumentException("Warning: speed cannot be negative");
-    } else
-      this.speed = speed;
-
+    } else this.speed = speed;
+    
+    this.cost = cost;
+    exist();
+    timer();
   }
 
-  /**
-   * constructs default fish
-   */
-  public Fish() {
-    this(5, "images" + File.separator + "orange.png", 10);
-  }
 
   /**
    * Overrides the draw() method implemented in the parent class. This method sets the position of
@@ -110,16 +108,35 @@ public class Fish extends TankObject {
 
     Timer timer = new Timer();
     TimerTask task = new TimerTask() {
-
       @Override
       public void run() {
-
-        if (count >= 0)
-          System.out.println("gold : " + count + "seconds");
+        if (exist() == false) {
+          System.out.println("Timer canceled");
+          timer.cancel();
+        }
         else {
+          System.out.println("drop");
           goldDrop();
         }
+        
       }
     };
+    timer.scheduleAtFixedRate(task, 5000, 5000);
+
+  }
+
+  public boolean exist() {
+    return exist;
+  }
+
+  public void appear() {
+    this.exist = true;
+  }
+
+  public void disappear() {
+    this.exist = false;
+  }
+  public int getCost() {
+    return cost;
   }
 }
