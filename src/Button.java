@@ -95,7 +95,6 @@ public class Button implements TankListener {
     if(this.isMouseOver()) {
       System.out.println("A button was pressed.");
     }
-
   }
 
   /**

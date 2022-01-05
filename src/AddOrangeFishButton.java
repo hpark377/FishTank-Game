@@ -38,7 +38,12 @@ public class AddOrangeFishButton extends Button{
   public void mousePressed() {
     // TODO Auto-generated method stub
     super.mousePressed();
-    tank.objects.add(new Fish());
+    try {
+      GoldCounter.subtract(100);
+      OrangeFish orange = new OrangeFish();
+      tank.addObject(orange);
+      orange.appear();
+    } catch (ArithmeticException ae) {} 
   }
 
 }

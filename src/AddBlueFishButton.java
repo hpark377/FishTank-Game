@@ -37,7 +37,15 @@ public class AddBlueFishButton extends Button{
   @Override
   public void mousePressed() {
     super.mousePressed();
-    tank.addObject(new BlueFish()); 
+    try {
+      GoldCounter.subtract(300);
+      BlueFish blue = new BlueFish();
+      System.out.println("fail!");
+      tank.addObject(blue);
+      blue.appear();
+    } catch (ArithmeticException ae) {System.out.println("more coins!");} 
+    
+    
   }
   
 

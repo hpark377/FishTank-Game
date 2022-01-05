@@ -29,7 +29,9 @@ public class BlueFish extends Fish{
    * Constructor that uses the blue fish image 
    */
   BlueFish(){
-	super(2,"images" + File.separator + "bluefish.png");	
+
+    super(2,"images" + File.separator + "blue.png",10, 300);
+
   }
   
 

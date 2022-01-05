@@ -1,5 +1,4 @@
-//////////////// FILE HEADER (INCLUDE IN EVERY FILE) //////////////////////////
-//
+//////////////// FILE HEADER (INCLUDE IN EVERY FILE) ////////////////////////////
 // Title: Yellow Fish Button
 // Course: CS 300 Fall 2021
 //
@@ -13,8 +12,7 @@
 // Online Sources: NONE
 //
 ///////////////////////////////////////////////////////////////////////////////
-import java.io.File;
- 
+
 /**
  * this class creates button for yellow fish
  *
@@ -38,7 +36,12 @@ public class AddYellowFishButton extends Button {
   @Override
   public void mousePressed() {
     super.mousePressed();
-    tank.objects.add(new Fish(2, "images" + File.separator + "yellow.png"));
+    try {
+      GoldCounter.subtract(200);
+      YellowFish yellow = new YellowFish();
+      tank.addObject(yellow);
+      yellow.appear();
+    } catch (ArithmeticException ae) {} 
   }
 
 }
