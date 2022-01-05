@@ -99,7 +99,13 @@ public class FishTank extends PApplet {
     this.objects.add(new AddOrangeFishButton(129, 16));
     this.objects.add(new AddYellowFishButton(215, 16));
     this.objects.add(new ClearTankButton(301, 16));
+
+    // show up the shark
+    
+    this.objects.add(new Shark());
+    
     this.objects.add(new GoldCounter(714, 16));
+
   }
 
   /**
