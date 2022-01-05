@@ -25,7 +25,7 @@ import java.util.TimerTask;
 public class Fish extends TankObject {
   private int speed;
   private int cost;
-  private boolean isSwimming;
+  private boolean isSwimming = true;;
   public int turnheight = 0;
   public int turnwidth = 0;
   private boolean exist = true;
