@@ -102,46 +102,46 @@ public class Fish extends TankObject {
    */
   public void swim() {
 	  if(turnwidth ==0 & turnheight == 0) {
-		  this.setX(this.getX()-this.speed());
-		  this.setY(this.getY()-(this.speed()/2));
-		  if(this.getX()<0) {
+		  this.setX(this.getX()+this.speed());
+		  this.setY(this.getY()+(this.speed()/2));
+		  if(this.getX()>= tank.width) {
 			  ++turnwidth;
 			  this.flip();
 		  }
-		  else if(this.getY()<=0) {
+		  else if(this.getY()>= tank.height) {
 			  ++turnheight;
 		  }
 	  }
 	  else if(turnwidth != 0 & turnheight == 0){
-		  this.setX(this.getX()+this.speed());
-		  this.setY(this.getY()-(this.speed()/2));
-		  if(this.getX() >= tank.width) {
+		  this.setX(this.getX()-this.speed());
+		  this.setY(this.getY()+(this.speed()/2));
+		  if(this.getX() <=0) {
 			  --turnwidth;
 			  this.flip();
 		  }
-		  else if(this.getY()<=0) {
+		  else if(this.getY()>= tank.height) {
 			  ++turnheight;
 		  }
 	  }
 	  else if(turnwidth == 0 & turnheight != 0){
-		  this.setX(this.getX()-this.speed());
-		  this.setY(this.getY()+(this.speed()/2));
-		  if(this.getX() < 0) {
+		  this.setX(this.getX()+this.speed());
+		  this.setY(this.getY()-(this.speed()/2));
+		  if(this.getX() >= tank.width) {
 			  ++turnwidth;
 			  this.flip();
 		  }
-		  else if(this.getY() >= tank.height) {
+		  else if(this.getY() <=0) {
 			  --turnheight;
 		  }
 	  }
 	  else {
-		  this.setX(this.getX()+this.speed());
-		  this.setY(this.getY()+(this.speed()/2));
-		  if(this.getX() >= tank.width) {
+		  this.setX(this.getX()-this.speed());
+		  this.setY(this.getY()-(this.speed()/2));
+		  if(this.getX() <=0) {
 			  --turnwidth;
 			  this.flip();
 		  }
-		  else if(this.getY() >= tank.height) {
+		  else if(this.getY() <=0) {
 			  --turnheight;
 		  }
 	  }
